@@ -3,15 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 class Square extends React.Component {
+  // 构造函数，props 为接收的参数
+  constructor(props) {
+    super(props); // 定义子类的构造函数时，都需要调用 super 方法
+    this.state = { value: null }; // 给 Square 类定义一个属性 state
+  }
+
   render() {
     return (
-      <button
-        className="square"
-        onClick={() => {
-          console.log("click");
-        }}
-      >
-        {this.props.value}
+      // this.setState 更新 state 的数据
+      <button className="square" onClick={() => this.setState({ value: "x" })}>
+        {this.state.value}
       </button>
     );
   }
@@ -19,7 +21,7 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square value={i} />;
+    return <Square value={i} />; // Square 的 this.props = {value: i}
   }
 
   render() {
