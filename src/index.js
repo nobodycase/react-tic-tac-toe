@@ -23,14 +23,18 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      xIsNext: true, // x 为先手棋
     };
   }
 
   handleClick(i) {
     // 这里 slice 什么用？ 用 .slice() 方法创建了 squares 数组的一个副本，而不是直接在现有的数组上进行修改
     const squares = this.state.squares.slice();
-    squares[i] = "X";
-    this.setState({ squares: squares });
+    squares[i] = this.state.xIsNext ? "X" : "O"; // 棋子落下
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext, // 棋子落下，下一步是否轮到x就改变
+    });
   }
 
   renderSquare(i) {
@@ -43,7 +47,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = "Next player: X";
+    const status = "Next player: " + (this.state.xIsNext ? "X" : "O");
 
     return (
       <div>
